@@ -84,6 +84,25 @@ print(find_value(arr, 9))
 print(find_value(arr, 8))
 
 
+## 순열
+from itertools import permutations
+arr = ['a', 'b', 'c']
+result = list(permutations(arr, 2))
+print(result)
+
+
+## 중복 순열
+from itertools import product
+result = list(product(arr, repeat=2))
+print(result)
+
+
+## 중복 조합
+from itertools import combinations_with_replacement
+result = list(combinations_with_replacement(arr, 2))
+print(result)
+
+
 ## 내장 함수
 print(max(arr))
 print(min(arr))
@@ -111,16 +130,17 @@ print(result)
 
 
 ## 코딩 테스트 입출력 형태 맞추기
-# n = int(input())
-# arr = list(map(int, input().split()))
+n = int(input())
+arr = list(map(int, input().split()))
 
-# print(n)
-# print(arr)
+print(n)
+print(arr)
 
-
-
+## 입력 문자열의 다수 라인인 경우 시간 초과를 피하기 위해서 import sys
 import sys
 input  = sys.stdin.readline
 
 data = input().rstrip()
 print(data)
+
+
