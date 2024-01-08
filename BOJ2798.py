@@ -16,18 +16,18 @@ print(max_value)
 
 
 ## 풀이
-n, m = list(map(int, input().split(' ')))
-arr = list(map(int, input().split(' ')))
+# n, m = list(map(int, input().split(' ')))
+# arr = list(map(int, input().split(' ')))
 
-result = 0
-length = len(arr)
+# result = 0
+# length = len(arr)
 
-count = 0
-for i in range(0, length) :
-    for j in range(i + 1, length) :
-        for k in range(j + 1, length) :
-            sum_value = arr[i] + arr[j] + arr[k]
-            if sum_value <= m:
-                result = max(result, sum_value)
+# count = 0
+# for i in range(0, length) :
+#     for j in range(i + 1, length) :
+#         for k in range(j + 1, length) :
+#             sum_value = arr[i] + arr[j] + arr[k]
+#             if sum_value <= m:
+#                 result = max(result, sum_value)
 
-print(result)
+# print(result)
