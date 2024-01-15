@@ -16,7 +16,7 @@ while len(deq) > 0 :
     
     result.append(deq.popleft())
 
-print('<', end = ' ')
+print('<', end = '')
 for i in range(len(result)) : 
     if i < len(result) - 1 :
         print(result[i], end = ', ')

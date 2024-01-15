@@ -21,4 +21,3 @@ for i in range (len(data)) :
     
 for x in NGE:
     print(x, end = ' ')
-

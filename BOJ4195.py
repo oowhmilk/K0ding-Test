@@ -35,7 +35,6 @@ def find(x) :
 def union(x, y) :
     x = find(X)
     y = find(y)
-
     parent[y] = x
 
 parent= []
