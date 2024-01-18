@@ -15,5 +15,3 @@ for i in range(5) :
         index = i
 
 print(index + 1, max)
-    
-    
