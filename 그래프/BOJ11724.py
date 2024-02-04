@@ -15,23 +15,18 @@ def union_parent(parent, x, y) :
     else :
         parent[a] = b
 
-
 n, m = map(int, input().split())
-parent = [0] * n
+parent = [0] * (n + 1)
 
-for i in range(n) :
+for i in range(1, n + 1) :
     parent[i] = i
 
-cycle = False
 for i in range(m) :
     x, y = map(int, input().split())
+    union_parent(parent, x , y)
 
-    if find_parent(parent, x) == find_parent(parent, y) :
-        cycle = True
-        print(i + 1)
-        break
-    else :
-        union_parent(parent, x, y)
+counter = set()
+for i in range(1, n + 1):
+    counter.add(find_parent(parent, i))
 
-if not cycle :
-    print(0)
+print(len(counter))
