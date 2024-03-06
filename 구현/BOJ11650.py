@@ -10,4 +10,5 @@ for _ in range(n) :
     
 arr = sorted(arr)
 
-print(arr)
+for i in arr :
+    print(i[0], i[1])
