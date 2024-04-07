@@ -28,3 +28,34 @@ for i in range(1, n) :
 ans += right - left
 
 print(ans)
+
+
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+
+arr = []
+for i in range(n) :
+    x, y = map(int, input().split(' '))
+    arr.append((x, y))
+
+arr = sorted(arr)
+
+before_x = arr[0][0]
+before_y = arr[0][1]
+
+result = 0
+for i in range(1, len(arr)) :
+    if arr[i][1] < before_y :
+        continue
+    elif arr[i][0] <= before_y < arr[i][1]:
+        before_y = arr[i][1]
+    elif before_y < arr[i][0] : 
+        result += (before_y - before_x)
+        before_x = arr[i][0]
+        before_y = arr[i][1]
+
+result += (before_y - before_x)
+
+print(result)
