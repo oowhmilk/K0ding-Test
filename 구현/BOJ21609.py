@@ -15,12 +15,22 @@ def gravity():
     return
 
 
-def rotate():
+# def rotate():
+#     global blocks
+#     temp_blocks = [[0] * N for _ in range(N)]
+#     for r in range(N):
+#         for c in range(N):
+#             temp_blocks[r][c] = blocks[c][N - 1 - r]
+
+#     blocks = temp_blocks[:]
+#     return
+
+def rotate() :
     global blocks
     temp_blocks = [[0] * N for _ in range(N)]
-    for r in range(N):
-        for c in range(N):
-            temp_blocks[r][c] = blocks[c][N - 1 - r]
+
+    # 반시계 90도 이면 시계 270
+    temp_blocks = [x[::-1] for x in list(map(list, zip(*blocks[::-1])))[::-1]]
 
     blocks = temp_blocks[:]
     return
