@@ -4,18 +4,18 @@ input = sys.stdin.readline
 def dfs(x, y) :
     global count
 
+    dir = {(-1, 0), (1 , 0), (0, -1), (0, 1)}
     visited[x][y] = True
     count += 1
 
-    directions = {(-1, 0), (1, 0), (0, -1), (0, 1)}
-    for dx, dy in directions : 
+    for dx, dy in dir :
         nx = x + dx
         ny = y + dy
 
         if nx < 0 or n <= nx or ny < 0 or n <= ny :
             continue
 
-        if arr[nx][ny] == 1 and  visited[nx][ny] == False :
+        if arr[nx][ny] == 1 and not visited[nx][ny] :
             dfs(nx, ny)
 
 
@@ -32,18 +32,18 @@ for i in range(n) :
         else : 
             arr[i][j] = 1
 
+
 result = 0
 total = []
 for i in range(n) :
     for j in range(n) :
-        if arr[i][j] == 1 and visited[i][j] == False :
+        if arr[i][j] == 1 and not visited[i][j] :
             result += 1
             count = 0
             dfs(i, j)
             total.append(count)
 
-print(result)
 
-total = sorted(total)
-for data in total :
-    print(data)
+print(result)
+for x in sorted(total) :
+    print(x)
