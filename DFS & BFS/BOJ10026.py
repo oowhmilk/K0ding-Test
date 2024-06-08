@@ -3,73 +3,85 @@ input = sys.stdin.readline
 
 sys.setrecursionlimit(100000)
 
-def normal_dfs(x, y, color) :
-    normal_visited[x][y] = True
-    
-    directions = {(-1, 0), (1, 0), (0, -1), (0, 1)}
-    for dx, dy in directions :
+def normal_dfs(x, y) :
+    global color
+
+    dir = {(-1, 0), (1 , 0), (0, -1), (0, 1)}
+    visited[x][y] = True
+
+    for dx, dy in dir :
         nx = x + dx
         ny = y + dy
 
         if nx < 0 or n <= nx or ny < 0 or n <= ny :
             continue
 
-        if normal_arr[nx][ny] == color and normal_visited[nx][ny] == False :
-            normal_dfs(nx, ny, color)
+        if normal[nx][ny] == color and not visited[nx][ny] :
+            normal_dfs(nx, ny)
 
+def ab_normal_dfs(x, y) :
+    global color
 
-def disable_dfs(x, y, color) :
-    disable_visited[x][y] = True
-    
-    directions = {(-1, 0), (1, 0), (0, -1), (0, 1)}
-    for dx, dy in directions :
+    dir = {(-1, 0), (1 , 0), (0, -1), (0, 1)}
+    visited[x][y] = True
+
+    for dx, dy in dir :
         nx = x + dx
         ny = y + dy
 
         if nx < 0 or n <= nx or ny < 0 or n <= ny :
             continue
 
-        if disable_arr[nx][ny] == color and disable_visited[nx][ny] == False :
-            disable_dfs(nx, ny, color)
+        if ab_normal[nx][ny] == color and not visited[nx][ny] :
+            ab_normal_dfs(nx, ny)
 
 
 n = int(input())
-normal_arr = [[0] * n for _ in range(n)]
-normal_visited = [[False] * n for _ in range(n)]
-disable_arr = [[0] * n for _ in range(n)]
-disable_visited = [[False] * n for _ in range(n)]
+normal = [[0] * (n) for _ in range(n)]
+ab_normal = [[0] * (n) for _ in range(n)]
+visited = [[False] * (n) for _ in range(n)]
 
 for i in range(n) :
     str = input().strip()
-    arr = list(str)
-    
-    for j in range(len(arr)) :
-        if arr[j] == 'R' : # 빨강 : 정상 = 0, 비정상 = 0
-            normal_arr[i][j] = 0
-            disable_arr[i][j] = 0
-        elif arr[j] == 'G' : # 초록 : 정상 = 1, 비정상 = 0
-            normal_arr[i][j] = 1
-            disable_arr[i][j] = 0
-        elif arr[j] == 'B' : # 파랑 : 정상 = 2, 비정상 = 2
-            normal_arr[i][j] = 2
-            disable_arr[i][j] = 2
+    change = list(str)
 
-normal_count = 0
+    for j in range(n) :
+        if change[j] == 'R' : #
+            normal[i][j] = 0
+        elif change[j] == 'G' : 
+            normal[i][j] = 1
+        else :
+            normal[i][j] = 2
+
+    for j in range(n) :
+        if change[j] == 'R' : #
+            ab_normal[i][j] = 0
+        elif change[j] == 'G' : 
+            ab_normal[i][j] = 0
+        else :
+            ab_normal[i][j] = 2
+
+
+normal_result = 0
 for i in range(n) :
     for j in range(n) :
-        if normal_visited[i][j] == False :
-            normal_count += 1
-            normal_dfs(i, j, normal_arr[i][j])
+        if not visited[i][j] :
+            normal_result += 1
+            color = normal[i][j]
+            normal_dfs(i, j)
 
-disable_count = 0
+
+visited = [[False] * (n) for _ in range(n)]
+ab_normal_result = 0
 for i in range(n) :
     for j in range(n) :
-        if disable_visited[i][j] == False :
-            disable_count += 1
-            disable_dfs(i, j, disable_arr[i][j])
+        if not visited[i][j] :
+            ab_normal_result += 1
+            color = ab_normal[i][j]
+            ab_normal_dfs(i, j)
 
-print(normal_count, disable_count)
-
+print(normal_result, end = ' ')
+print(ab_normal_result)
 
 import sys
 input = sys.stdin.readline
