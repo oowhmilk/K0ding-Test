@@ -25,7 +25,6 @@
 # print(sum(heap))
 
 
-
 import sys
 input = sys.stdin.readline
 import heapq
@@ -42,8 +41,6 @@ arr.sort()
 heap = []
 time = 0
 for i in range(n) :
-    # deadline, noodle = arr[i]
-    # print(arr[i][1])
     heapq.heappush(heap, arr[i][1])
 
     if len(heap) > arr[i][0] :
