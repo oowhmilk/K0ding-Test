@@ -1,6 +1,6 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit
+sys.setrecursionlimit(int(1e5))
 
 def rotate(q) :
     size = l[q]
