@@ -23,23 +23,47 @@
 
 # print(bfs(n))
 
+# import sys
+# input = sys.stdin.readline
+
+# from collections import deque
+
+# def bfs(n) :
+#     q = deque([n])
+
+#     while q :
+#         v = q.popleft()
+#         if v == k :
+#             return arr[v]
+#         for next in v - 1, v + 1, v * 2 :
+#             if 0 <= next < 100001 and not arr[next] :
+#                 arr[next] = arr[v] + 1
+#                 q.append(next)
+
+
+# n, k = map(int, input().split(' '))
+# arr = [0] * (200001)
+# print(bfs(n))
+
+
+from collections import deque
 import sys
 input = sys.stdin.readline
 
-from collections import deque
-
 def bfs(n) :
-    q = deque([n])
+    q = deque()
+    q.append(n)
 
-    while q :
+    while q:
         v = q.popleft()
+
         if v == k :
             return arr[v]
+        
         for next in v - 1, v + 1, v * 2 :
             if 0 <= next < 100001 and not arr[next] :
                 arr[next] = arr[v] + 1
                 q.append(next)
-
 
 n, k = map(int, input().split(' '))
 arr = [0] * (200001)
