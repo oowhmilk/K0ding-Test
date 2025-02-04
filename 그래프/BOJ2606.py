@@ -1,28 +1,33 @@
+from collections import deque
 import sys
 input = sys.stdin.readline
-from collections import deque
+
+def bfs(x) :
+    q = deque()
+    q.append(x)
+    visited[x] = True
+
+    while q :
+        x = q.popleft()
+        for next in arr[x] :
+            if not visited[next] :
+                visited[next] = True
+                q.append(next)
 
 n = int(input())
 
 arr = [[] for _ in range(n + 1)]
 for _ in range(int(input())) :
-    x, y = map(int, input().split(' '))
-    arr[x].append(y)
-    arr[y].append(x)
+    a, b = map(int, input().split(' '))
+    arr[a].append(b)
+    arr[b].append(a)
 
 visited = [False] * (n + 1)
+bfs(1)
 
-q = deque()
-q.append(1)
-visited[1] = True
 count = 0
+for i in range(1, n + 1) :
+    if not visited[i] :
+        count += 1
 
-while q :
-    x = q.popleft()
-    for next in arr[x] :
-        if not visited[next] :
-            visited[next] = True
-            q.append(next)
-            count += 1
-
-print(count)
+print(n - 1 - count)
