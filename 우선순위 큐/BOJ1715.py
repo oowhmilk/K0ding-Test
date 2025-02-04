@@ -1,18 +1,18 @@
+import heapq
 import sys
 input = sys.stdin.readline
 
-import heapq
-
 heap = []
 for _ in range(int(input())) :
-    heapq.heappush(heap, int(input()))
+    x = int(input())
+    heapq.heappush(heap, x)
 
 count = 0
-while len(heap) != 1 :
+while 2 <= len(heap) :
     a = heapq.heappop(heap)
     b = heapq.heappop(heap)
 
-    heapq.heappush(heap, a + b)
     count += a + b
+    heapq.heappush(heap, a + b)
 
 print(count)
