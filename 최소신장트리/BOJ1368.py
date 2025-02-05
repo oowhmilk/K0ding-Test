@@ -1,54 +1,53 @@
-# 우물을 팔 때 드는 비용을 0번 논에 논을 연결하는 비용이라고 생각하고 문제를 접근
-# 이때 모든 논을 연결하는데 최소 비용을 확인할 수 있다.
-# 따라서 최소신장트리 MST 를 사용하는 방식이다.
-
 import sys
 input = sys.stdin.readline
+
+def find_parent(parent, a, b) :
+    x = get_parent(parent, a)
+    y = get_parent(parent, b)
+
+    if x == y :
+        return True
+    else :
+        return False
+    
+def union_parent(parent, a, b) :
+    x = get_parent(parent, a)
+    y = get_parent(parent, b)
+
+    if x < y :
+        parent[y] = x
+    else :
+        parent[x] = y
 
 def get_parent(parent, x) :
     if parent[x] == x :
         return x
     return get_parent(parent, parent[x])
 
-def union_parent(parent, x, y) :
-    a = get_parent(parent, x)
-    b = get_parent(parent, y)
-
-    if a < b :
-        parent[b] = a
-    else :
-        parent[a] = b
-
-def find_parent(parent, x, y) :
-    a = get_parent(parent, x)
-    b = get_parent(parent, y)
-
-    if a == b :
-        return True
-    else :
-        return False
-
 n = int(input())
-arr = [] 
 
-for i in range(1, n + 1):
-    arr.append([0, i, int(input())])
-for i in range(n):
-    tmp = list(map(int, input().split()))
-    for j in range(n):
-        if i != j:
-            arr.append([i + 1, j + 1, tmp[j]])
+arr = [0]
+for _ in range(n) :
+    arr.append(int(input()))
 
-arr.sort(key=lambda x: x[2])
+non = []
+non.append(arr)
+for i in range(1, n + 1) :
+    non.append([arr[i]] + list(map(int, input().split(' '))))
 
-parent = {}
+water = []
 for i in range(n + 1) :
-    parent[i] = i
+    for j in range(n + 1) :
+        water.append((i, j, non[i][j]))
 
-answer = 0
-for a, b, c in arr :
+water.sort(key = lambda x : x[2])
+
+parent = [i for i in range(n + 1)]
+
+total = 0
+for a, b, c in water :
     if not find_parent(parent, a, b) :
         union_parent(parent, a, b)
-        answer += c
+        total += c
 
-print(answer)
+print(total)
