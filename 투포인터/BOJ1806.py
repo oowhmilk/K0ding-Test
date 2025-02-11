@@ -1,50 +1,43 @@
 import sys
 input = sys.stdin.readline
 
-n, s= map(int, input().split(' '))
+n, m = map(int, input().split(' '))
 arr = list(map(int, input().split(' ')))
 
-left = 0
-right = 1
-
-total = arr[left] + arr[right]
-min_size = int(1e9)
-
 for x in arr :
-    if s <= x :
+    if m <= x :
         print(1)
         sys.exit()
 
+l = 0
+r = 1
+sum = arr[l] + arr[r]
+min_size = int(1e9)
 
-while right != n - 1 :
-     
-    if total < s:
-        right += 1
-        total += arr[right]
+while l < r and r < len(arr) - 1 :
+    if sum < m :
+        r += 1
+        sum += arr[r]
     else :
-        min_size = min(min_size, right - left + 1)
-        if left + 1 == right :
-            total -= arr[left]
-            left += 1
-            right += 1
-            total += arr[right]
+        min_size = min(min_size, r - l + 1)
+        l += 1
+
+        if l == r :
+            r += 1
+            sum -= arr[l - 1]
+            sum += arr[r]
         else :
-            total -= arr[left]
-            left += 1
+            sum -= arr[l - 1]
 
-
-if left == 0 and right == n - 1 :
-    if total < s :
-        print(0)
-        sys.exit()
-
-while left != n - 1 :
-     
-    if total >= s:
-        min_size = min(min_size, right - left + 1)
-        total -= arr[left]
-        left += 1
-    else :
+while l < r :
+    if sum < m :
         break
+    else :
+        min_size = min(min_size, r - l + 1)
+        l += 1
+        sum -= arr[l - 1]
 
-print(min_size)
+if min_size == int(1e9) :
+    print(0)
+else :
+    print(min_size)
