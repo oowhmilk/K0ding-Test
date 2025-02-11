@@ -4,17 +4,16 @@ input = sys.stdin.readline
 n = int(input())
 
 arr = []
-for _ in range(n) : 
+for _ in range(n) :
     arr.append(int(input()))
 
-result = set(arr)
-max_sum = -1
+check = set(arr)
+result = 0
 
-for i in range(n):
-    for j in range(i, n):  
-        for k in range(j, n):
-            s = arr[i] + arr[j] + arr[k]
-            if s in result:
-                max_sum = max(max_sum, s)
+for i in range(n) :
+    for j in range(i, n) :
+        for k in range(j, n) :
+            if arr[i] + arr[j] + arr[k] in check :
+                result = max(result, arr[i] + arr[j] + arr[k])
 
-print(max_sum)
+print(result)
