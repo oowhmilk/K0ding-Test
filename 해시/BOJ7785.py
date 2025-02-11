@@ -1,17 +1,17 @@
 import sys
 input = sys.stdin.readline
 
-dict = {}
+n = int(input())
 
-for _ in range(int(input())) : 
-    name, behavior = input().strip().split(' ')
+dic = {}
+for _ in range(n) :
+    name, which = input().strip().split(' ')
 
-    if name in dict :
-        dict.pop(name)
+    if name in dic :
+        dic.pop(name)
     else :
-        dict[name] = 1
+        dic[name] = 1
 
-dict = sorted(dict, reverse = True)
-
-for x in dict :
+dic = sorted(dic, reverse = True)
+for x in dic :
     print(x)
