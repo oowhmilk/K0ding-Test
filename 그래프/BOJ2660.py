@@ -1,107 +1,50 @@
-# import sys
-# input = sys.stdin.readline
-# from collections import deque
-
-# def bfs(x) :
-#     q = deque()
-#     q.append(x)
-#     visited[x] = True
-
-#     while q :
-#         x = q.popleft()
-
-#         for y in arr[x] :
-#             if not visited[y] :
-#                 dist[y] = dist[x] + 1
-#                 visited[y] = True
-#                 q.append(y)
-
-
-# n = int(input())
-
-# arr = [[] for _ in range(n + 1)]
-
-# while 1 :
-#     x, y = map(int, input().split(' '))
-
-#     if x == -1 and y == -1 :
-#         break
-    
-#     arr[x].append(y)
-#     arr[y].append(x)
-
-# result = []
-# min_value = int(1e9)
-
-# for x in range(1, n + 1) :
-
-#     visited = [False] * (n + 1)
-#     dist = [0] * (n + 1)
-#     bfs(x)
-
-#     if max(dist) < min_value :
-#         min_value = max(dist)
-#         result = []
-#         result.append(x)
-
-#     elif max(dist) == min_value :
-#         result.append(x)
-
-# print(min_value, len(result))
-# for x in result :
-#     print(x, end = ' ')
-
-
 from collections import deque
 import sys
 input = sys.stdin.readline
 
 def bfs(x) :
     q = deque()
-    q.append(x)
+    q.append((x, 0))
     visited[x] = True
 
+    count = -1
     while q :
-        x = q.popleft()
+        x, num = q.popleft()
 
-        for y in arr[x] :
-            if not visited[y] :
-                dist[y] = dist[x] + 1
-                visited[y] = True
-                q.append(y)
+        for next in arr[x] :
+            if not visited[next] :
+                q.append((next, num + 1))
+                visited[next] = True
+                count = max(count, num + 1)
 
+    return count
 
 n = int(input())
+arr = [[] for _ in range(n + 1)]
 
-arr =[[] for _ in range(n + 1)]
+while True :
+    a, b = map(int, input().split(' '))
 
-while 1 :
-    x, y = map(int, input().split(' '))
-
-    if x == -1 and y == -1 :
+    if a == -1 and b == -1 :
         break
 
-    arr[x].append(y)
-    arr[y].append(x)
+    arr[a].append(b)
+    arr[b].append(a)
 
-
-result = []
-min_value = int(1e9)
-
+result = [int(1e9)]
 for x in range(1, n + 1) :
-    
     visited = [False] * (n + 1)
-    dist = [0] * (n + 1)
-    bfs(x)
+    count = bfs(x)
+    result.append(count)
 
-    if max(dist) < min_value :
-        min_value = min(min_value, max(dist))
-        result = []
-        result.append(x)
+min_value = min(result)
+min_count = 0
+for i in range(1, n + 1) :
+    if result[i] == min_value :
+        min_count += 1
 
-    elif max(dist) == min_value :
-        result.append(x)
+print(min_value, min_count)
 
-print(min_value, len(result))
-for x in result :
-    print(x, end = ' ')
+for i in range(1, n + 1) :
+    if result[i] == min_value :
+        print(i, end = ' ')
