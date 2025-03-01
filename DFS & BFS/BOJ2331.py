@@ -1,29 +1,21 @@
 import sys
 input = sys.stdin.readline
 
-def calculate(a, p) :
-    
-    sum = 0
-    for i in str(a):
-        sum += int(i) ** p
-
-    return sum
-
 a, p = map(int, input().split(' '))
-arr = []
-arr.append(a)
+arr = [a]
 
-while 1 :
-    
-    sum = 0
-    sum = calculate(a, p)
+while True :
+    value = arr[-1]
 
-    if sum not in arr :
-        arr.append(sum)
-    else :
-        for i in range(len(arr)) :
-            if arr[i] == sum :
-                print(i)
-                sys.exit()
-    
-    a = sum
+    tmp = 0
+    for s in str(value) :
+        tmp += int(s) ** p
+
+    if tmp in arr :
+        break
+
+    arr.append(tmp)
+
+for i in range(len(arr)) :
+    if arr[i] == tmp :
+        print(i)
