@@ -2,44 +2,43 @@ import sys
 input = sys.stdin.readline
 
 def combinations(n, new_arr, c) :
-    global chick
+    
     global result
 
     if len(new_arr) == n :
-        
-        total_value = 0
-        for j in range(len(house)) :
+        total = 0
+        for j in range(len(home)) :
 
             min_value = int(1e9)
             for k in range(len(new_arr)) :
-                x1, y1 = house[j]
+                x1, y1 = home[j]
                 x2, y2 = new_arr[k]
+
                 min_value = min(min_value, abs(x1 - x2) + abs(y1 - y2))
-                
-            total_value += min_value
+            
+            total += min_value
 
-        result = min(total_value, result)
+        result = min(total, result)
+
     
-    for i in range(c, len(chick)) :
-        combinations(n, new_arr + [chick[i]], i + 1)
-
+    for i in range(c, len(chicken)) :
+        combinations(n, new_arr + [chicken[i]], i + 1)
 
 n, m = map(int, input().split(' '))
+arr = []
 
-house = []
-chick = []
-
+home = []
+chicken = []
 result = int(1e9)
 
 for i in range(n) :
     check = list(map(int, input().split(' ')))
 
-    for j in range(len(check)) :
-        if check[j] == 1 : 
-            house.append((i, j))
+    for j in range(n) :
+        if check[j] == 1 :
+            home.append((i, j))
         elif check[j] == 2 :
-            chick.append((i, j))
+            chicken.append((i, j))
 
 combinations(m, [], 0)
-
 print(result)
