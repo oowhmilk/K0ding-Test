@@ -25,24 +25,50 @@
 #         print(''.join(password))
 
 
+# import sys
+# input = sys.stdin.readline
+
+# from itertools import combinations
+
+# l, c = map(int, input().split(' '))
+# arr = list(input().strip().split(' '))
+# arr.sort()
+
+# vowels = ['a', 'e', 'i', 'o', 'u']
+
+# result = list(combinations(arr, l))
+
+# for x in result :
+#     count = 0
+#     for i in x :
+#         if i in vowels :
+#             count += 1
+
+#     if count >= 1 and count <= l - 2 :
+#         print(''.join(x))
+
+from itertools import combinations
 import sys
 input = sys.stdin.readline
 
-from itertools import combinations
-
 l, c = map(int, input().split(' '))
-arr = list(input().strip().split(' '))
+
+string = input().strip()
+arr = list(string.split(' '))
 arr.sort()
 
-vowels = ['a', 'e', 'i', 'o', 'u']
-
-result = list(combinations(arr, l))
-
-for x in result :
+comb = list(combinations(arr, l))
+for x in comb : 
+    
     count = 0
-    for i in x :
-        if i in vowels :
+    non_count = 0
+    for check in x :
+        if check in ('a', 'e', 'i', 'o', 'u') :
             count += 1
+        else : 
+            non_count += 1
 
-    if count >= 1 and count <= l - 2 :
-        print(''.join(x))
+        if count >= 1 and non_count >= 2 :
+            print(''.join(x))
+            break
+    
