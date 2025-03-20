@@ -3,24 +3,27 @@ input = sys.stdin.readline
 
 k, n = map(int, input().split(' '))
 
-line = []
+arr = []
 for _ in range(k) :
-    line.append(int(input()))
+    arr.append(int(input()))
 
-min_line = 0
-max_line = max(line)
+l = 0
+r = max(arr)
 
-while min_line < max_line :
-    mid_line = int((min_line + max_line) // 2)
-
-    count = 0
+while l <= r :
     
-    for x in line :
-        count += x // mid_line
+    mid = int((l + r) / 2)
 
-    if count >= n :
-        min_line = mid_line + 1
-    else : 
-        max_line = mid_line - 1
+    if mid == 0 :
+        mid = 1
 
-print(max_line)
+    total = 0
+    for x in arr : 
+        total += int(x / mid)
+    
+    if n <= total :
+        l = mid + 1
+    else :
+        r = mid - 1
+
+print(r)
