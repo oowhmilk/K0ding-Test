@@ -1,31 +1,45 @@
+from collections import deque
 import sys
 input = sys.stdin.readline
-from collections import deque
 
-n, k = map(int, input().split())
-a = deque(map(int, input().split())) 
-robot = deque([0] * n) 
-result = 0
+n, k = map(int, input().split(' '))
+belt = deque(map(int, input().split(' ')))
+robot = deque([False] * n)
 
-while True:
-    result += 1
+answer = 0
+while True :
 
-    a.rotate(1)
-    robot[-1] = 0
+    answer += 1
+
+    # 벨트 회전
+    belt.rotate(1)
     robot.rotate(1)
-    robot[-1] = 0    
 
-    for i in range(n - 2, -1, -1):  
-        if a[i + 1] >= 1 and robot[i + 1] == 0 and robot[i] == 1:
-            robot[i + 1] = 1
-            robot[i] = 0
-            a[i + 1] -= 1
-    robot[-1] = 0  
+    # n 번째에 있는 로봇 내리기
+    robot[n - 1] = False
 
-    if a[0] != 0 and robot[0] != 1:
-        robot[0] = 1
-        a[0] -= 1
-    
-    if a.count(0) >= k:
+    # 로봇 이동하기
+    for i in range(len(robot) - 2, -1, -1) :
+        if robot[i] == True and belt[i + 1] >= 1 and robot[i + 1] == False :
+            robot[i] = False
+            robot[i + 1] = True
+            belt[i + 1] -= 1
+
+    # n 번째에 있는 로봇 내리기
+    robot[n - 1] = False
+
+    # 로봇 올리기
+    if robot[0] == False and belt[0] >= 1:
+        robot[0] = True
+        belt[0] -= 1
+
+    # 내구도 0 인 개수 확인하기
+    count = 0
+    for i in range(len(belt)) :
+        if belt[i] == 0 :
+            count += 1
+
+    if count >= k :
         break
-print(result)
+
+print(answer)
