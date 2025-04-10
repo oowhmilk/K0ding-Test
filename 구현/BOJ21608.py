@@ -2,87 +2,73 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
+arr = [[0] * n for _ in range(n)]
 
-arr = []
+input_arr = []
 for _ in range(n ** 2) :
-    arr.append(list(map(int, input().split(' '))))
+    input_arr.append(list(map(int, input().split(' '))))
 
-grid = [[0] * n for _ in range(n)] # 실제로 넣은 배열
+for data in input_arr :
 
-for data in arr :
-    input = data[0]
+    student = data[0]
 
+    # 비어있는 칸 중에 좋아하는 학생 몇명있는지 확인
     score = [[0] * n for _ in range(n)]
-
-    # 새로 넣을 값 어디다 넣을지 정하기 위한 score[i][j] 마다 확인해서 점수 매기기
-    for i in range(n) : 
-        for j in range(n) :
-            
-            x = i
-            y = j
+    
+    for x in range(n) :
+        for y in range(n) :
             count = 0
+            for k in range(1, len(data)) :
 
-            for k in range(1, len(data)) : # 넣을려는 값들의 좋아하는 값들이 주변에 있는지 확인하기
-                
-                check = data[k] # 좋아하는 값
-                directions = {(-1, 0), (1, 0), (0, -1), (0, 1)}
-                for dx, dy in directions :
+                check = data[k]
+                dir = {(-1, 0), (0, 1), (0, -1), (1, 0)}
+                for dx, dy in dir :
                     nx = x + dx
                     ny = y + dy
 
-                    if nx < 0 or n <= nx or ny < 0 or n <= ny :
-                        continue
-
-                    if check == grid[nx][ny] :
+                    if 0 <= nx < n and 0 <= ny < n and arr[nx][ny] == check :
                         count += 1
 
             score[x][y] = count
-        
 
+    # 비어있는 칸 중에 좋아하는 학생 수의 큰 값을 찾기
     empty = 0
     input_x = -1
     input_y = -1
 
-    # 실제로 넣을 위치 찾기
     max_score = -1
     for i in range(n) :
         for j in range(n) :
-            if max_score < score[i][j] and grid[i][j] == 0:
+            if max_score < score[i][j] and arr[i][j] == 0 :
                 max_score = score[i][j]
                 input_x = i
                 input_y = j
 
-
-    for i in range(n) :
-        for j in range(n) :
+    
+    for x in range(n) :
+        for y in range(n) :
 
             count = 0
-            x = i
-            y = j
-
-            if max_score == score[x][y] and grid[x][y] == 0:
-                directions = {(-1, 0), (1, 0), (0, -1), (0, 1)}
-                for dx, dy in directions :
+            if max_score == score[x][y] and arr[x][y] == 0 :
+                dir = {(-1, 0), (1, 0), (0, -1), (0, 1)}
+                for dx, dy in dir :
                     nx = x + dx
-                    ny = y + dy
+                    ny = y + dy 
 
-                    if nx < 0 or n <= nx or ny < 0 or n <= ny :
-                        continue
-
-                    if grid[nx][ny] == 0 : # 주변 빈칸 개수 만큼 count 증가
+                    if 0 <= nx < n and 0 <= ny < n and arr[nx][ny] == 0 :
                         count += 1
-                        
-            
+
             if count > empty :
                 empty = count
-                input_x = i
-                input_y = j
-                
+                input_x = x
+                input_y = y
 
-    grid[input_x][input_y] = input
+    arr[input_x][input_y] = student
+
+
 
 ans = 0
-for data in arr :
+for data in input_arr :
     input = data[0]
 
     for i in range(n) :
@@ -92,7 +78,7 @@ for data in arr :
             y = j
             count = 0
 
-            if input == grid[i][j] :
+            if input == arr[i][j] :
                 
                 for k in range(1, len(data)) : # 넣을려는 값들의 좋아하는 값들이 주변에 있는지 확인하기
                 
@@ -105,7 +91,7 @@ for data in arr :
                         if nx < 0 or n <= nx or ny < 0 or n <= ny :
                             continue
 
-                        if check == grid[nx][ny] :
+                        if check == arr[nx][ny] :
                             count += 1
 
                 
@@ -121,4 +107,3 @@ for data in arr :
                 ans += 1000
 
 print(ans)
-                            
